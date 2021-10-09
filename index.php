@@ -3,6 +3,7 @@
 if(!isset($fnameError)) {$fnameError = '';}
 if(!isset($lnameError)) {$lnameError = '';}
 if(!isset($emailError)) {$emailError = '';}
+if(!isset($radioExample)) { $radioExample = '';}
 
 
 ?>
@@ -36,6 +37,8 @@ if(!isset($emailError)) {$emailError = '';}
   <p style="color:red;"><?php print $fnameError; ?></p>
   <p style="color:red;"><?php print $lnameError; ?></p>
   <p style="color:red;"><?php print $emailError; ?></p>
+  <p style="color:red;"><?php print $radioExampleError; ?></p>
+
 
 
 
@@ -83,14 +86,18 @@ if(!isset($emailError)) {$emailError = '';}
   Radio Buttons can be selected. ---> 
   <!--- Created an Array "confirmation[]" for both Radio Buttons.
     Corresponds With The PHP Script. ---> 
+  <!--- 10/9/2021 Changed Label Radio name to "radioExample" from "confirmation[]"
+  In Order For NULL Logic In The PHP Script. --->
   <label>
-    <input type="radio" id="yes" name="confirmation[]" value="yes">Yes
+    <input type="radio" id="yes" name="radioExample" value="yes">Yes
   </label>
 
   <label>
-    <input type="radio" id="no" name="confirmation[]" value="no">No
+    <input type="radio" id="no" name="radioExample[" value="no">No
   </label>
+  
 
+          
   <br>
   <br>
 

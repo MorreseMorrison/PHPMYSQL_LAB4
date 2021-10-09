@@ -10,7 +10,7 @@
 <?php
 
 if(isset($fname))
-//Created Three Mail Function Parameters
+//Created Four Mail Function Parameters
 $to      = "rese298@outlook.com";
 $subject = "Aliens Abducted Me Form Submission";
 $message = "hello";
@@ -22,14 +22,17 @@ mail($to, $subject, $message, $headers);
 //10/5/2021
 //Created Variables To Hold The Data From The Submission Form
 // $fname = $_POST['fname'];
-$fname = filter_input(INPUT_POST, 'fname',);
-$lname = $_POST['lname'];
+$fname = filter_input(INPUT_POST, 'fname', FILTER_SANITIZE_STRING);
+$lname = filter_input(INPUT_POST, 'lname', FILTER_SANITIZE_STRING);
 $email = $_POST['email'];
-$when = $_POST['when'];
-$long = $_POST['long'];
-$how = $_POST['how'];
-$description = $_POST['description'];
+$when = filter_input(INPUT_POST, 'when', FILTER_SANITIZE_STRING);
+$long = filter_input(INPUT_POST, 'long', FILTER_SANITIZE_STRING);
+$how = filter_input(INPUT_POST, 'how', FILTER_SANITIZE_NUMBER_INT);
+$description = filter_input(INPUT_POST, 'description', FILTER_SANITIZE_STRING);
 $add = $_POST['add'];
+//10/9/2021 Radio Example Varible Creation
+$radioExample = filter_input(INPUT_POST, 'radioExample'); 
+
 
 
 
@@ -59,11 +62,17 @@ $add = $_POST['add'];
 //if 10/5/2021 $fname is empty display error message
 if($fname==NULL){
     $fnameError = " *Please enter your first name!";}
+
 if($lname==NULL){
-    $lnameError = " *Please enter your last name!";}
+    $lnameError = " *Please enter your last name!";
+}
 if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
     $emailError = " *Please enter a valid email address!";
       }
+
+if ($radioExample==NULL) {
+	$radioExampleError = "*Please select a radio button!"; 
+}
     else{
 echo "Thanks for Submitting the form <b>$fname</b> <b>$lname</b>.";
 echo "<br>";
@@ -73,15 +82,14 @@ echo "You said there were <b>$how</b> of them.";
 echo "<br>";
 echo "You described them as <b>$description</b>.";
 echo "<br>";
-echo "Did you see Fluffy? You Answered<b>$value</b>: ";
+echo "Did you see Fluffy? You Answered: <b>$radioExample</b>.";
 //Utilized The Array Method. Set Both Radio Buttons To The Array "confirmation[]"
 //Utilized The For Each Loop Method To Loop Through The Array. Assigned It To The Variable "$value"
-
-foreach($_POST['confirmation'] as $value)
-{
-    //Prints The Value Method
-   print "<b>$value</b>";
-}
+// foreach($_POST['confirmation'] as $value)
+// {
+//     //Prints The Value Method
+//    print "<b>$value</b>";
+// }
 echo "<br>";
 echo "We will contact you at <b>$email</b> if we have any relevant news.";
 echo "<br>";
@@ -91,7 +99,7 @@ echo "You other comments were: <b>$add</b>.";
 
 //  10/5/2021if an error message exists, show the form page
 if(($fnameError != '') || ($lnameError != '') ||
-($emailError != '')){
+($emailError != '') || ($radioExampleError != '')){
     
     include('index.php');
     exit();
